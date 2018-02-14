@@ -11,12 +11,30 @@ package biblioteca.sergiogomez.DAO.Modelo;
  */
 public class Usuario {
     private int id;
+    private String nombreUsuario;
     private String nombre;
     private String apellido;
     private String direccion;
     private String Telefono;
     private String Email;
+    private String contrasena;
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    
     public int getId() {
         return id;
     }
@@ -67,13 +85,15 @@ public class Usuario {
 
     
     
-    public Usuario(int id, String nombre, String apellido, String direccion, String Telefono, String Email) {
+    public Usuario(int id,String nombreUsuario, String nombre, String apellido, String direccion, String Telefono, String Email,String contrasena) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.Telefono = Telefono;
         this.Email = Email;
+        this.nombreUsuario=nombreUsuario;
+        this.contrasena=contrasena;
     }
 
     public Usuario() {

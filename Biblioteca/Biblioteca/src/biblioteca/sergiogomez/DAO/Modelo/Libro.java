@@ -9,7 +9,7 @@ package biblioteca.sergiogomez.DAO.Modelo;
  *
  * @author Sergio
  */
-public class Libros {
+public class Libro {
     private int id;
     private String titulo;
     private String ISBN;
@@ -47,14 +47,14 @@ public class Libros {
         this.idprestamo = idprestamo;
     }
 
-    public Libros(int id, String titulo, String ISBN, int idprestamo) {
+    public Libro(int id, String titulo, String ISBN, int idprestamo) {
         this.id = id;
         this.titulo = titulo;
         this.ISBN = ISBN;
         this.idprestamo = idprestamo;
     }
 
-    public Libros() {
+    public Libro() {
     }
        
 }

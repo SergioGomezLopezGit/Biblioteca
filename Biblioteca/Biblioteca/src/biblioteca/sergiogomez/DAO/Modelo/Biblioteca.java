@@ -12,15 +12,15 @@ import java.util.ArrayList;
  * @author Sergio
  */
 public class Biblioteca {
-    private ArrayList<Libros> libros;
+    private ArrayList<Libro> libros;
     private ArrayList<Usuario> usuarios;
-    private ArrayList<Libros> prestamos;
+    private ArrayList<Libro> prestamos;
 
-    public ArrayList<Libros> getLibros() {
+    public ArrayList<Libro> getLibros() {
         return libros;
     }
 
-    public void setLibros(ArrayList<Libros> libros) {
+    public void setLibros(ArrayList<Libro> libros) {
         this.libros = libros;
     }
 
@@ -32,11 +32,11 @@ public class Biblioteca {
         this.usuarios = usuarios;
     }
 
-    public ArrayList<Libros> getPrestamos() {
+    public ArrayList<Libro> getPrestamos() {
         return prestamos;
     }
 
-    public void setPrestamos(ArrayList<Libros> prestamos) {
+    public void setPrestamos(ArrayList<Libro> prestamos) {
         this.prestamos = prestamos;
     }
 
@@ -45,10 +45,10 @@ public class Biblioteca {
     public Biblioteca() {
     }
 
-    public Biblioteca(ArrayList<Libros> libros, ArrayList<Usuario> usuarios, ArrayList<Libros> prestamos) {
-        this.libros = new ArrayList<Libros>();
+    public Biblioteca(ArrayList<Libro> libros, ArrayList<Usuario> usuarios, ArrayList<Libro> prestamos) {
+        this.libros = new ArrayList<Libro>();
         this.usuarios = new ArrayList<Usuario>();
-        this.prestamos = new ArrayList<Libros>();
+        this.prestamos = new ArrayList<Libro>();
     }
      
 }
