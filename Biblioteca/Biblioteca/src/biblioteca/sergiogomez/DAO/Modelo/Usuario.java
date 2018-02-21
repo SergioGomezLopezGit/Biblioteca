@@ -19,6 +19,10 @@ public class Usuario {
     private String Email;
     private String contrasena;
 
+    public Usuario(int nuevoId, String text, String text0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getContrasena() {
         return contrasena;
     }

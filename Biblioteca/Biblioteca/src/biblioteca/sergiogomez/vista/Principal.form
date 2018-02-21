@@ -40,6 +40,33 @@
                 <Property name="text" type="java.lang.String" value="Admin Usuarios"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="adminLibros">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Admin Libros"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="prestamos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Prestamos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="verPrestamos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver prestamos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mis prestamos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="verMisPrestamos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver mis prestamos"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

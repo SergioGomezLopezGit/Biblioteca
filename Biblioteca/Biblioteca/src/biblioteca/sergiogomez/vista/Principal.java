@@ -19,7 +19,7 @@ import javax.swing.JDesktopPane;
  * @author Sergio
  */
 public class Principal extends javax.swing.JFrame implements ActionListener {
-    private static JDesktopPane desktop;
+    public static JDesktopPane desktop;
     private static ClaseDAO conexion;
     private static Usuario sesion;
     private static Biblioteca biblioteca;
@@ -55,6 +55,25 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     public static void setConexion(ClaseDAO conexion) {
         Principal.conexion = conexion;
     }
+
+    private void TipoSesion() {
+        try{
+            if(!getSesion().getNombreUsuario().equals("Admin")){
+                jMenu2.setVisible(false);
+                jMenu3.setVisible(true);
+                menuExit.setVisible(true);
+                menuLogin.setEnabled(true);
+                menuCambiarContrasena.setVisible(true);
+            }else{
+                jMenu2.setVisible(true);
+                menuExit.setVisible(true);
+                menuLogin.setEnabled(true);
+                menuCambiarContrasena.setVisible(true); 
+            }
+        }catch(NullPointerException npe){
+            System.exit(0);
+        }
+    }
     
     
     /**
@@ -64,12 +83,13 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         setConexion(new ClaseDAO());
         biblioteca=new Biblioteca();
         biblioteca.setUsuarios(conexion.cargarUsuarios());
+        biblioteca.setLibros(conexion.cargarLibros());
         initComponents();
         dimensionarPantalla();
         iniciarDesktop();
         anadirListeners();
+        ocultarElementos();
         mostrarLogin();
-        menuExit.setVisible(false);
     }
 
     /**
@@ -88,6 +108,11 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         adminUsuarios = new javax.swing.JMenuItem();
+        adminLibros = new javax.swing.JMenuItem();
+        prestamos = new javax.swing.JMenuItem();
+        verPrestamos = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        verMisPrestamos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,7 +136,23 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         adminUsuarios.setText("Admin Usuarios");
         jMenu2.add(adminUsuarios);
 
+        adminLibros.setText("Admin Libros");
+        jMenu2.add(adminLibros);
+
+        prestamos.setText("Prestamos");
+        jMenu2.add(prestamos);
+
+        verPrestamos.setText("Ver prestamos");
+        jMenu2.add(verPrestamos);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Mis prestamos");
+
+        verMisPrestamos.setText("Ver mis prestamos");
+        jMenu3.add(verMisPrestamos);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,13 +206,18 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem adminLibros;
     private javax.swing.JMenuItem adminUsuarios;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuCambiarContrasena;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenuItem menuLogin;
+    private javax.swing.JMenuItem prestamos;
+    private javax.swing.JMenuItem verMisPrestamos;
+    private javax.swing.JMenuItem verPrestamos;
     // End of variables declaration//GEN-END:variables
 
     private void iniciarDesktop() {
@@ -181,13 +227,10 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     }
     
     private void mostrarLogin(){
-        Login frame = new Login();
-        frame.setLocation((getWidth()-frame.getWidth())/2,(getHeight()-frame.getHeight())/2);
+        menuLogin.setEnabled(false);
+        DialogoLogin frame=new DialogoLogin(this, true);
         frame.setVisible(true);
-        desktop.add(frame);
-        try {
-            frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        TipoSesion();        
     }
 
     private void dimensionarPantalla() {
@@ -202,6 +245,10 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         menuLogin.addActionListener(this);
         menuCambiarContrasena.addActionListener(this);
         adminUsuarios.addActionListener(this);
+        adminLibros.addActionListener(this);
+        prestamos.addActionListener(this);
+        verPrestamos.addActionListener(this);
+        verMisPrestamos.addActionListener(this);
     }
 
     @Override
@@ -219,9 +266,29 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
             case "Admin Usuarios":
                 mostrarAdminUsuarios();
                 break;
+            case "Admin Libros":
+                mostrarAdminLibros();
+                break;
+            case "Prestamos":
+                mostrarSeleccionDeUsuario();
+                break;
+            case "Ver prestamos":
+                mostrarSeleccionDeUsuarioPrestamos();
+                break;
+            case "Ver mis prestamos":
+                verPrestamosUSuario();
+                break;
         }
     }
 
+    
+    private void verPrestamosUSuario(){
+        ListarPrestamosDeUsuario frame=new ListarPrestamosDeUsuario(getSesion());
+        frame.setLocation((Principal.desktop.getWidth()-frame.getWidth())/2,(Principal.desktop.getHeight()-frame.getHeight())/2);
+        frame.setVisible(true);
+        Principal.desktop.add(frame);
+    }
+    
     private void mostrarcambiarContrasena() {
         CambiarContrasena frame=new CambiarContrasena();
         frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
@@ -234,6 +301,45 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
 
     private void mostrarAdminUsuarios() {
         GestionUsuarios frame=new GestionUsuarios();
+        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        frame.setVisible(true);
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }
+    
+    private void mostrarSeleccionDeUsuario() {
+        SeleccionDeUsuarioParaPrestamo frame=new SeleccionDeUsuarioParaPrestamo();
+        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        frame.setVisible(true);
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }
+    
+    private void mostrarAdminLibros(){
+        GestionLibros frame=new GestionLibros();
+        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        frame.setVisible(true);
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}   
+    
+    }
+
+    private void ocultarElementos() {
+        jMenu2.setVisible(false);
+        jMenu3.setVisible(false);
+        menuExit.setVisible(true);
+        menuLogin.setEnabled(false);
+        menuCambiarContrasena.setVisible(false);
+    }
+
+    private void mostrarSeleccionDeUsuarioPrestamos() {
+        SeleccionDeUsuarioParaListarPrestamos frame=new SeleccionDeUsuarioParaListarPrestamos();
         frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
         frame.setVisible(true);
         desktop.add(frame);

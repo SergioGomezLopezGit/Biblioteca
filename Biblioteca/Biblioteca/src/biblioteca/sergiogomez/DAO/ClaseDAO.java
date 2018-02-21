@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Sergio
  */
-public class ClaseDAO {
+public final class ClaseDAO {
     private Connection connection;
     
     public ClaseDAO(){
@@ -76,7 +76,7 @@ public class ClaseDAO {
         return valido;
     }
     
-    public int nuevoId(){
+    public int nuevoIdUsuario(){
         int id=0;
         try {
             Statement stmt = connection.createStatement();
@@ -88,13 +88,27 @@ public class ClaseDAO {
         }
         return id;
     }
-    
+
     public boolean existeUsuario(String nombre){
         boolean existe=false;
         try {           
             String consulta="select id from usuarios where nombre_usuario=?";
             PreparedStatement stmt = connection.prepareStatement(consulta);
             stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();  
+            existe = rs.absolute(1);
+        } catch (SQLException ex) {
+            return existe;
+        }
+        return existe;
+    }
+    
+    public boolean existeLibro(String isbn){
+        boolean existe=false;
+        try {           
+            String consulta="select ISBN from libros where ISBN=?";
+            PreparedStatement stmt = connection.prepareStatement(consulta);
+            stmt.setString(1, isbn);
             ResultSet rs = stmt.executeQuery();  
             existe = rs.absolute(1);
         } catch (SQLException ex) {
@@ -117,12 +131,22 @@ public class ClaseDAO {
         return fila;
     }
     
-    
     public void addUsuario(Usuario usuario,String contrasena){
         try {
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate("INSERT INTO usuarios (id, carnet, Nombre, Apellido, Direccion, Telefono, Email, contrasena, Nombre_Usuario) "
                     + "VALUES ("+usuario.getId()+", '0', '"+usuario.getNombre()+"', '"+usuario.getApellido()+"', '"+usuario.getDireccion()+"', '"+usuario.getTelefono()+"', '"+usuario.getEmail()+"', '"+contrasena+"', '"+usuario.getNombreUsuario()+"');"); 
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void addLibro(Libro libro){
+        try {
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate("INSERT INTO libros (titulo, isbn, idusuario) "
+                    + "VALUES ('"+libro.getTitulo()+"', '"+libro.getISBN()+"', NULL);"); 
             stmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -135,7 +159,7 @@ public class ClaseDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("select * from libros");
             while (rs.next()) {
-                fila.add(new Libro(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4)));
+                fila.add(new Libro(rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
             stmt.close();
             rs.close();
@@ -155,9 +179,21 @@ public class ClaseDAO {
         }
     }
     
+    public void borrarLibro(String isbn){
+        try {
+            String consulta="delete from libros where isbn=?";
+            PreparedStatement stmt = connection.prepareStatement(consulta);
+            stmt.setString(1, isbn);
+            int rs = stmt.executeUpdate();  
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public Usuario obtenerUsuario(String nombre) throws SQLException{
         Usuario usuario;
-        String consulta="select id,nombre_usuario,nombre,apellido,direccion,telefono,email,contrasena from usuarios where nombre=?";
+        String consulta="select id,nombre_usuario,nombre,apellido,direccion,telefono,email,contrasena from usuarios where nombre_usuario=?";
         PreparedStatement stmt = connection.prepareStatement(consulta);
         stmt.setString(1, nombre);
         ResultSet rs = stmt.executeQuery();  
@@ -166,7 +202,7 @@ public class ClaseDAO {
         return usuario;
     }
     
-    public void actualizar(Usuario usuario){
+    public void actualizarUsuario(Usuario usuario){
         try {
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate("UPDATE usuarios SET nombre_usuario = '"+usuario.getNombreUsuario()+"', nombre = '"+usuario.getNombre()+"', apellido = '"+usuario.getApellido()+"', direccion = '"+usuario.getDireccion()+"', telefono = '"+usuario.getTelefono()+"', email = '"+usuario.getEmail()+"' WHERE id = "+usuario.getId()+";");
@@ -176,4 +212,61 @@ public class ClaseDAO {
         }
     }
     
+    public void actualizarLibros(Libro libro){
+        try {
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate("UPDATE libros SET titulo = '"+libro.getTitulo()+"' WHERE isbn = "+libro.getISBN()+";");
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public ArrayList<Libro> cargarLibrosUsuairo(int id){
+        ArrayList<Libro> fila=new ArrayList<Libro>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from libros where idusuario="+id+"");
+            while (rs.next()) {
+                fila.add(new Libro(rs.getString(1), rs.getString(2), rs.getInt(3)));
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException ex) {}
+        return fila;
+    }
+    
+    public ArrayList<Libro> cargarLibrosSinPrestamo(){
+        ArrayList<Libro> fila=new ArrayList<Libro>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from libros where idusuario IS NULL");
+            while (rs.next()) {
+                fila.add(new Libro(rs.getString(1), rs.getString(2), rs.getInt(3)));
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException ex) {}
+        return fila;
+    }
+        
+    public void realizarReserva(int id,String titulo){
+        try {
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate("UPDATE libros SET idusuario = "+id+" WHERE titulo = '"+titulo+"';");
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+       
+    public void realizarDevolucion(int id,String titulo){
+        try {
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate("UPDATE libros SET idusuario = NULL WHERE titulo = '"+titulo+"';");
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

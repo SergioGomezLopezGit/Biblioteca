@@ -10,18 +10,9 @@ package biblioteca.sergiogomez.DAO.Modelo;
  * @author Sergio
  */
 public class Libro {
-    private int id;
     private String titulo;
     private String ISBN;
     private int idprestamo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -47,8 +38,7 @@ public class Libro {
         this.idprestamo = idprestamo;
     }
 
-    public Libro(int id, String titulo, String ISBN, int idprestamo) {
-        this.id = id;
+    public Libro(String titulo, String ISBN, int idprestamo) {
         this.titulo = titulo;
         this.ISBN = ISBN;
         this.idprestamo = idprestamo;

@@ -40,6 +40,7 @@ public class CambiarContrasena extends javax.swing.JInternalFrame implements Act
         aviso = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Cambio de contraseña");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/sergiogomez/imagenes/login.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
