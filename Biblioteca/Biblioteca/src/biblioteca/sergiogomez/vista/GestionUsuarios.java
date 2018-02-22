@@ -5,8 +5,8 @@
  */
 package biblioteca.sergiogomez.vista;
 
-import biblioteca.sergiogomez.DAO.Modelo.ModeloTablaUsuarios;
-import biblioteca.sergiogomez.DAO.Modelo.Usuario;
+import biblioteca.sergiogomez.Modelo.ModeloTablaUsuarios;
+import biblioteca.sergiogomez.Modelo.Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;

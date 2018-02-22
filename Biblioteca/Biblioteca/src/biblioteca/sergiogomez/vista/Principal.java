@@ -6,8 +6,8 @@
 package biblioteca.sergiogomez.vista;
 
 import biblioteca.sergiogomez.DAO.ClaseDAO;
-import biblioteca.sergiogomez.DAO.Modelo.Biblioteca;
-import biblioteca.sergiogomez.DAO.Modelo.Usuario;
+import biblioteca.sergiogomez.Modelo.Biblioteca;
+import biblioteca.sergiogomez.Modelo.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;

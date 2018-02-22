@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package biblioteca.sergiogomez.DAO.Modelo;
+package biblioteca.sergiogomez.Modelo;
 
 /**
  *
@@ -18,10 +18,6 @@ public class Usuario {
     private String Telefono;
     private String Email;
     private String contrasena;
-
-    public Usuario(int nuevoId, String text, String text0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public String getContrasena() {
         return contrasena;
@@ -101,8 +97,6 @@ public class Usuario {
     }
 
     public Usuario() {
-    }
-    
-    
+    }    
     
 }

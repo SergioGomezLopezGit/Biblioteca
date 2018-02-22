@@ -5,8 +5,8 @@
  */
 package biblioteca.sergiogomez.DAO;
 
-import biblioteca.sergiogomez.DAO.Modelo.Libro;
-import biblioteca.sergiogomez.DAO.Modelo.Usuario;
+import biblioteca.sergiogomez.Modelo.Libro;
+import biblioteca.sergiogomez.Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

@@ -5,7 +5,7 @@
  */
 package biblioteca.sergiogomez.vista;
 
-import biblioteca.sergiogomez.DAO.Modelo.ModeloTablaUsuarios;
+import biblioteca.sergiogomez.Modelo.ModeloTablaUsuarios;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -94,7 +94,6 @@ public class SeleccionDeUsuarioParaListarPrestamos extends javax.swing.JInternal
     @Override
     public void mouseClicked(MouseEvent e) {
         filaSeleccionada=jTable1.getSelectedRow();
-        System.out.println(filaSeleccionada);
     }
 
     @Override

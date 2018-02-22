@@ -5,8 +5,8 @@
  */
 package biblioteca.sergiogomez.vista;
 
-import biblioteca.sergiogomez.DAO.Modelo.ModeloTablaLibrosPrestadosAUsuario;
-import biblioteca.sergiogomez.DAO.Modelo.Usuario;
+import biblioteca.sergiogomez.Modelo.ModeloTablaLibrosPrestadosAUsuario;
+import biblioteca.sergiogomez.Modelo.Usuario;
 
 /**
  *

@@ -3,21 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package biblioteca.sergiogomez.DAO.Modelo;
+package biblioteca.sergiogomez.Modelo;
 
 import biblioteca.sergiogomez.vista.Principal;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Sergio
  */
-public class ModeloTablaUsuarios extends AbstractTableModel {
-    private String[] columna= new String [] {"Nombre Usuario","Contraseña","Nombre", "Apellidos", "Direccion", "Telefono", "Email"};
-    
+public class ModeloTablaLibrosPrestadosAUsuario extends AbstractTableModel {
+    private final String[] columna= new String [] {"Titulo","ISBN"};
+    private ArrayList<Libro> libros;
+
+    public ModeloTablaLibrosPrestadosAUsuario(ArrayList<Libro> libros) {
+        this.libros = libros;
+    }
+
     @Override
     public int getRowCount() {
-        return Principal.getBiblioteca().getUsuarios().size();
+        return libros.size();
     }
 
     @Override
@@ -41,25 +47,10 @@ public class ModeloTablaUsuarios extends AbstractTableModel {
         Object obj=null;
         switch(columnIndex){
             case 0:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getNombreUsuario();
+                obj=libros.get(rowIndex).getTitulo();
                 break;
             case 1:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getContrasena();
-                break;
-            case 2:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getNombre();
-                break;
-            case 3:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getApellido();
-                break;
-            case 4:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getDireccion();
-                break;
-            case 5:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getTelefono();
-                break;
-            case 6:
-                obj=Principal.getBiblioteca().getUsuarios().get(rowIndex).getEmail();
+                obj=libros.get(rowIndex).getISBN();
                 break;
         }
         return obj;
