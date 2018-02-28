@@ -75,7 +75,7 @@ public class ClaseDAOTest {
     public void testNuevoIdUsuario() {
         System.out.println("nuevoIdUsuario");
         ClaseDAO instance = new ClaseDAO();
-        int expResult = 0;
+        int expResult = 6;
         int result = instance.nuevoIdUsuario();
         assertEquals(expResult, result);
     }
@@ -113,9 +113,9 @@ public class ClaseDAOTest {
     public void testCargarUsuarios() {
         System.out.println("cargarUsuarios");
         ClaseDAO instance = new ClaseDAO();
-        ArrayList<Usuario> expResult = new ArrayList<Usuario>();
-        ArrayList<Usuario> result = instance.cargarUsuarios();
-        assertEquals(expResult, result);
+        int expResult = 0;
+        int result = instance.cargarUsuarios().size();
+        assertNotEquals(expResult, result);
     }
 
     /**
@@ -125,8 +125,8 @@ public class ClaseDAOTest {
     public void testCargarLibros() {
         System.out.println("cargarLibros");
         ClaseDAO instance = new ClaseDAO();
-        ArrayList<Libro> expResult = new ArrayList<Libro>();
-        ArrayList<Libro> result = instance.cargarLibros();
+        int expResult = 5;
+        int result = instance.cargarLibros().size();
         assertEquals(expResult, result);
     }
 
@@ -138,9 +138,9 @@ public class ClaseDAOTest {
         System.out.println("obtenerUsuario");
         String nombre = "";
         ClaseDAO instance = new ClaseDAO();
-        Usuario expResult = new Usuario();
+        Usuario expResult = null;
         Usuario result = instance.obtenerUsuario("Admin");
-        assertEquals(expResult, result);
+        assertNotEquals(expResult, result);
     }
 
     /**
@@ -165,7 +165,7 @@ public class ClaseDAOTest {
         ClaseDAO instance = new ClaseDAO();
         ArrayList<Libro> expResult = new ArrayList<Libro>();
         ArrayList<Libro> result = instance.cargarLibrosSinPrestamo();
-        assertEquals(expResult, result);
+        assertNotEquals(expResult, result);
     }
  
 }

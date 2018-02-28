@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.sergiogomez.vista;
 
 import biblioteca.sergiogomez.DAO.ClaseDAO;
 import biblioteca.sergiogomez.Modelo.Biblioteca;
+import biblioteca.sergiogomez.Modelo.Carnet;
 import biblioteca.sergiogomez.Modelo.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -113,6 +110,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         verPrestamos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         verMisPrestamos = new javax.swing.JMenuItem();
+        carnet = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,6 +149,9 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
 
         verMisPrestamos.setText("Ver mis prestamos");
         jMenu3.add(verMisPrestamos);
+
+        carnet.setText("Mi Carnet PDF");
+        jMenu3.add(carnet);
 
         jMenuBar1.add(jMenu3);
 
@@ -208,6 +209,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem adminLibros;
     private javax.swing.JMenuItem adminUsuarios;
+    private javax.swing.JMenuItem carnet;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -249,6 +251,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         prestamos.addActionListener(this);
         verPrestamos.addActionListener(this);
         verMisPrestamos.addActionListener(this);
+        carnet.addActionListener(this);
     }
 
     @Override
@@ -278,9 +281,19 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
             case "Ver mis prestamos":
                 verPrestamosUSuario();
                 break;
+            case "Mi Carnet PDF":
+                crearCarnet();
+                break;
         }
     }
 
+    private void crearCarnet(){
+        try {
+            Carnet carnet=new Carnet(getSesion().getId());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error en la creacion del Carnet.","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     private void verPrestamosUSuario(){
         ListarPrestamosDeUsuario frame=new ListarPrestamosDeUsuario(getSesion());

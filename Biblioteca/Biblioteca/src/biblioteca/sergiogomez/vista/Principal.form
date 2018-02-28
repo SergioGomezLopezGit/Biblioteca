@@ -67,6 +67,11 @@
                 <Property name="text" type="java.lang.String" value="Ver mis prestamos"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="carnet">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mi Carnet PDF"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
