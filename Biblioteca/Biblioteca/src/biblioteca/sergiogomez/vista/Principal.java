@@ -2,7 +2,7 @@ package biblioteca.sergiogomez.vista;
 
 import biblioteca.sergiogomez.DAO.ClaseDAO;
 import biblioteca.sergiogomez.Modelo.Biblioteca;
-import biblioteca.sergiogomez.Modelo.Carnet;
+import biblioteca.sergiogomez.Modelo.Informes;
 import biblioteca.sergiogomez.Modelo.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author Sergio
  */
 public class Principal extends javax.swing.JFrame implements ActionListener {
+
     public static JDesktopPane desktop;
     private static ClaseDAO conexion;
     private static Usuario sesion;
@@ -36,14 +37,14 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     public static void setSesion(Usuario sesion) {
         Principal.sesion = sesion;
     }
-    
+
     public static JDesktopPane getDesktop() {
         return desktop;
     }
 
     public static void setDesktop(JDesktopPane desktop) {
         Principal.desktop = desktop;
-    } 
+    }
 
     public static ClaseDAO getConexion() {
         return conexion;
@@ -54,31 +55,30 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     }
 
     private void TipoSesion() {
-        try{
-            if(!getSesion().getNombreUsuario().equals("Admin")){
+        try {
+            if (!getSesion().getNombreUsuario().equals("Admin")) {
                 jMenu2.setVisible(false);
                 jMenu3.setVisible(true);
                 menuExit.setVisible(true);
                 menuLogin.setEnabled(true);
                 menuCambiarContrasena.setVisible(true);
-            }else{
+            } else {
                 jMenu2.setVisible(true);
                 menuExit.setVisible(true);
                 menuLogin.setEnabled(true);
-                menuCambiarContrasena.setVisible(true); 
+                menuCambiarContrasena.setVisible(true);
             }
-        }catch(NullPointerException npe){
+        } catch (NullPointerException npe) {
             System.exit(0);
         }
     }
-    
-    
+
     /**
      * Creates new form Principal
      */
     public Principal() {
         setConexion(new ClaseDAO());
-        biblioteca=new Biblioteca();
+        biblioteca = new Biblioteca();
         biblioteca.setUsuarios(conexion.cargarUsuarios());
         biblioteca.setLibros(conexion.cargarLibros());
         initComponents();
@@ -108,6 +108,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         adminLibros = new javax.swing.JMenuItem();
         prestamos = new javax.swing.JMenuItem();
         verPrestamos = new javax.swing.JMenuItem();
+        informeUsuarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         verMisPrestamos = new javax.swing.JMenuItem();
         carnet = new javax.swing.JMenuItem();
@@ -142,6 +143,9 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
 
         verPrestamos.setText("Ver prestamos");
         jMenu2.add(verPrestamos);
+
+        informeUsuarios.setText("Informe Usuarios");
+        jMenu2.add(informeUsuarios);
 
         jMenuBar1.add(jMenu2);
 
@@ -210,6 +214,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JMenuItem adminLibros;
     private javax.swing.JMenuItem adminUsuarios;
     private javax.swing.JMenuItem carnet;
+    private javax.swing.JMenuItem informeUsuarios;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -223,22 +228,22 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     // End of variables declaration//GEN-END:variables
 
     private void iniciarDesktop() {
-        desktop=new JDesktopPane();
+        desktop = new JDesktopPane();
         setContentPane(desktop);
-        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE); 
+        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     }
-    
-    private void mostrarLogin(){
+
+    private void mostrarLogin() {
         menuLogin.setEnabled(false);
-        DialogoLogin frame=new DialogoLogin(this, true);
+        DialogoLogin frame = new DialogoLogin(this, true);
         frame.setVisible(true);
-        TipoSesion();        
+        TipoSesion();
     }
 
     private void dimensionarPantalla() {
-        Dimension dimension=Toolkit.getDefaultToolkit().getScreenSize();
-        int alto=(int)dimension.getHeight()-50;
-        int ancho=(int) dimension.getWidth();
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int alto = (int) dimension.getHeight() - 50;
+        int ancho = (int) dimension.getWidth();
         setSize(ancho, alto);
     }
 
@@ -252,13 +257,14 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         verPrestamos.addActionListener(this);
         verMisPrestamos.addActionListener(this);
         carnet.addActionListener(this);
+        informeUsuarios.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()){
+        switch (e.getActionCommand()) {
             case "Exit":
-                System.exit(0);               
+                System.exit(0);
                 break;
             case "Login":
                 mostrarLogin();
@@ -284,63 +290,71 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
             case "Mi Carnet PDF":
                 crearCarnet();
                 break;
+            case "Informe Usuarios":
+                crearInformeUsuarios();
+                break;                
         }
     }
 
-    private void crearCarnet(){
+    private void crearCarnet() {
         try {
-            Carnet carnet=new Carnet(getSesion().getId());
+            Informes informe = new Informes();
+            informe.carnet(getSesion().getId());
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"Ha ocurrido un error en la creacion del Carnet.","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la creacion del Carnet.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void verPrestamosUSuario(){
-        ListarPrestamosDeUsuario frame=new ListarPrestamosDeUsuario(getSesion());
-        frame.setLocation((Principal.desktop.getWidth()-frame.getWidth())/2,(Principal.desktop.getHeight()-frame.getHeight())/2);
+
+    private void verPrestamosUSuario() {
+        ListarPrestamosDeUsuario frame = new ListarPrestamosDeUsuario(getSesion());
+        frame.setLocation((Principal.desktop.getWidth() - frame.getWidth()) / 2, (Principal.desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         Principal.desktop.add(frame);
     }
-    
+
     private void mostrarcambiarContrasena() {
-        CambiarContrasena frame=new CambiarContrasena();
-        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        CambiarContrasena frame = new CambiarContrasena();
+        frame.setLocation((desktop.getWidth() - frame.getWidth()) / 2, (desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
 
     private void mostrarAdminUsuarios() {
-        GestionUsuarios frame=new GestionUsuarios();
-        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        GestionUsuarios frame = new GestionUsuarios();
+        frame.setLocation((desktop.getWidth() - frame.getWidth()) / 2, (desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
-    
+
     private void mostrarSeleccionDeUsuario() {
-        SeleccionDeUsuarioParaPrestamo frame=new SeleccionDeUsuarioParaPrestamo();
-        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        SeleccionDeUsuarioParaPrestamo frame = new SeleccionDeUsuarioParaPrestamo();
+        frame.setLocation((desktop.getWidth() - frame.getWidth()) / 2, (desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
-    
-    private void mostrarAdminLibros(){
-        GestionLibros frame=new GestionLibros();
-        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+
+    private void mostrarAdminLibros() {
+        GestionLibros frame = new GestionLibros();
+        frame.setLocation((desktop.getWidth() - frame.getWidth()) / 2, (desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}   
-    
+        } catch (java.beans.PropertyVetoException e) {
+        }
+
     }
 
     private void ocultarElementos() {
@@ -352,13 +366,19 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     }
 
     private void mostrarSeleccionDeUsuarioPrestamos() {
-        SeleccionDeUsuarioParaListarPrestamos frame=new SeleccionDeUsuarioParaListarPrestamos();
-        frame.setLocation((desktop.getWidth()-frame.getWidth())/2,(desktop.getHeight()-frame.getHeight())/2);
+        SeleccionDeUsuarioParaListarPrestamos frame = new SeleccionDeUsuarioParaListarPrestamos();
+        frame.setLocation((desktop.getWidth() - frame.getWidth()) / 2, (desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
-    
+
+    private void crearInformeUsuarios() {
+        Informes informe=new Informes();
+        informe.informeUsuariosLibros();
+    }
+
 }

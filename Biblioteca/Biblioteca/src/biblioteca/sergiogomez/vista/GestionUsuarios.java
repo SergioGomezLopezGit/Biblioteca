@@ -5,7 +5,7 @@
  */
 package biblioteca.sergiogomez.vista;
 
-import biblioteca.sergiogomez.Modelo.Carnet;
+import biblioteca.sergiogomez.Modelo.Informes;
 import biblioteca.sergiogomez.Modelo.ModeloTablaUsuarios;
 import biblioteca.sergiogomez.Modelo.Usuario;
 import java.awt.event.ActionEvent;
@@ -253,7 +253,8 @@ public class GestionUsuarios extends javax.swing.JInternalFrame implements Actio
     {
         try {
             if(filaSeleccionada!=0){
-                Carnet carnet=new Carnet(Principal.getBiblioteca().getUsuarios().get(filaSeleccionada).getId());
+                Informes informe=new Informes();
+                informe.carnet(Principal.getBiblioteca().getUsuarios().get(filaSeleccionada).getId());
             }else{
                 JOptionPane.showMessageDialog(null,"El usuario Admin no tiene carnet.","Error", JOptionPane.ERROR_MESSAGE);
             }

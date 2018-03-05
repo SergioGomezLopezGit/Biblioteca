@@ -55,6 +55,11 @@
                 <Property name="text" type="java.lang.String" value="Ver prestamos"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="informeUsuarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Informe Usuarios"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">

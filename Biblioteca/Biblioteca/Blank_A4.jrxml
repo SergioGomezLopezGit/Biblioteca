@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" language="javascript" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="69a4498c-9311-4a7f-aa55-bf2195d2a419">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Biblioteca"/>
+	<parameter name="usuarioID" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT biblioteca.libros.titulo,
+	biblioteca.libros.`ISBN`,
+	biblioteca.libros.idusuario,
+	biblioteca.usuarios.id,
+	biblioteca.usuarios.carnet,
+	biblioteca.usuarios.`Nombre`,
+	biblioteca.usuarios.`Apellido`,
+	biblioteca.usuarios.`Direccion`,
+	biblioteca.usuarios.`Telefono`,
+	biblioteca.usuarios.`Email`,
+	biblioteca.usuarios.contrasena,
+	biblioteca.usuarios.`Nombre_Usuario`
+FROM biblioteca.libros
+	INNER JOIN biblioteca.usuarios ON 
+	 biblioteca.usuarios.id = biblioteca.libros.idusuario
+	 AND biblioteca.libros.idusuario= $P{usuarioID}]]>
+	</queryString>
+	<field name="titulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="titulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="libros"/>
+	</field>
+	<field name="ISBN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ISBN"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="libros"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="595" height="79" uuid="8dc763fa-8c43-415b-b78f-5e65ab25fe9d"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libros del usuario]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="1212b680-806f-4d7a-bc3b-7db138b8d205">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5cfeca85-bde5-40a2-a456-aad693568292"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="100" height="30" uuid="ca7b6f80-e8ce-4f79-8063-a378c4d302c8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a088c37-c297-4d1e-8395-e1cd07c03a36"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ISBN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="811468c3-7e3c-4624-aadb-692b268320bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5cfeca85-bde5-40a2-a456-aad693568292"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="100" height="30" uuid="320fc1cb-1fdd-4bb4-a570-0520371fc5bf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a088c37-c297-4d1e-8395-e1cd07c03a36"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ISBN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

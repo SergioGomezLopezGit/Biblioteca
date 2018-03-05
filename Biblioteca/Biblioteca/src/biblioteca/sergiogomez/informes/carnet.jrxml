@@ -70,38 +70,53 @@ FROM biblioteca.usuarios where biblioteca.usuarios.`id` = $P{id_usuario}]]>
 				<reportElement x="50" y="0" width="100" height="30" uuid="b878b218-5bef-4b59-b21c-37b806e16004">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a6c9c52-2280-4c36-8b95-6c7705775c4b"/>
 				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="0" width="100" height="30" uuid="27cb253c-5df4-403d-a08d-4be854f2e493">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b08be1d7-0bc1-463f-9984-e13f21dc83d2"/>
 				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="560" y="0" width="100" height="30" uuid="d4722f3f-ec79-488c-83db-4eeabe41a456">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25bfd5c4-e954-4edb-b5c3-e66009fde77f"/>
 				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Direccion]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="440" y="0" width="100" height="30" uuid="8ba7a06f-34b4-4e73-b1f6-eaf4fd534e57">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b28a8fce-7aa7-4678-b0c5-5a6840c138c2"/>
 				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Telefono]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="300" y="0" width="100" height="30" uuid="34b2b36a-6425-4518-9611-4a1baab17b7d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c0a53b0-a7fc-44ac-b5c9-41fc0e8d89a9"/>
 				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Email]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="200" splitType="Stretch">
 			<textField>
-				<reportElement x="50" y="-10" width="100" height="30" uuid="4aee290b-84ff-4506-874f-d71648de7ef5">
+				<reportElement x="50" y="-11" width="100" height="30" uuid="4aee290b-84ff-4506-874f-d71648de7ef5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a6c9c52-2280-4c36-8b95-6c7705775c4b"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
@@ -113,7 +128,7 @@ FROM biblioteca.usuarios where biblioteca.usuarios.`id` = $P{id_usuario}]]>
 				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="430" y="-11" width="100" height="30" uuid="4f81de47-d089-4032-93eb-3ad5e24d5bb2">
+				<reportElement x="440" y="-11" width="100" height="30" uuid="4f81de47-d089-4032-93eb-3ad5e24d5bb2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b28a8fce-7aa7-4678-b0c5-5a6840c138c2"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
@@ -125,20 +140,11 @@ FROM biblioteca.usuarios where biblioteca.usuarios.`id` = $P{id_usuario}]]>
 				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="-10" width="100" height="30" uuid="54bdf481-46ba-4cb3-a594-0ba0003650f1">
+				<reportElement x="300" y="-11" width="100" height="30" uuid="54bdf481-46ba-4cb3-a594-0ba0003650f1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c0a53b0-a7fc-44ac-b5c9-41fc0e8d89a9"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -5,7 +5,7 @@
  */
 package biblioteca.sergiogomez.vista;
 
-import biblioteca.sergiogomez.Modelo.Carnet;
+import biblioteca.sergiogomez.Modelo.Informes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
